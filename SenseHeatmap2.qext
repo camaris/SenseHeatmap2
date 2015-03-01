@@ -1,0 +1,9 @@
+{
+	"name" : "Heatmap2",
+	"description" : "A Heatmap using 3 measures (x, y, heat).",
+	"icon" : "table",
+	"type" : "visualization",
+	"version": "1.0",
+	"preview" : "table",
+	"author": "Camaris"
+}

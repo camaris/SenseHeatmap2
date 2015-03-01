@@ -107,7 +107,6 @@ simpleheat.prototype = {
 
         ctx.clearRect(0, 0, this._width, this._height);
 
-//get min & max
 var mi1=0,mi2=0,mi3=0;
 var ma1=1,ma2=1,ma3=1;
 
@@ -118,6 +117,9 @@ for (var i = 0, len = this._data.length, p; i < len; i++) {
     if (p[0]>ma1) ma1=p[0];
     if (p[1]>ma2) ma2=p[1];
     if (p[2]>ma3) ma3=p[2];
+    if (p[0]<mi1) mi1=p[0];
+    if (p[1]<mi2) mi2=p[1];
+    if (p[2]<mi3) mi3=p[2];
 
 //console.log((p[0])+" : "+(p[1])+" : "+(p[2])+" / "+ma1+" : "+ma2+" : "+ma3+" : ");
 
@@ -125,23 +127,20 @@ for (var i = 0, len = this._data.length, p; i < len; i++) {
 
 //console.log(ma1+" : "+ma2+" : "+ma3+" / "+this._width+" : "+this._height);
 
-var sc1=0.8*this._width/ma1;
-var sc2=0.8*this._height/ma2;
-var sc3=ma3/ma3;
-var offSet1=0.1*this._width;
-var offSet2=0.1*this._height;
-//sc1=sc1*0.9;
-//sc2=sc2*0.9;
-
+var sc1=0.9*this._width/(ma1-mi1);
+var sc2=0.9*this._height/(ma2-mi2);
+var sc3=1;
+var offSet1=0.05*this._width;
+var offSet2=0.05*this._height;
 
 console.log("Heatmap Scales : "+sc1+" : "+sc2+" : "+sc3);
-console.log("Heatmap Offset : "+offSet1+" : "+offSet1);
+console.log("Heatmap Offset : "+offSet1+" : "+offSet2);
 
         // draw a grayscale heatmap by putting a blurred circle at each data point
         for (var i = 0, len = this._data.length, p; i < len; i++) {
             p = this._data[i];
             ctx.globalAlpha = Math.max(p[2] / this._max, minOpacity === undefined ? 0.05 : minOpacity);
-            ctx.drawImage(this._circle, p[0]*sc1+offSet1 - this._r, p[1]*sc2+offSet2 - this._r);
+            ctx.drawImage(this._circle, p[0]*sc1+offSet1 - this._r, this._height-(p[1]*sc2+offSet2) - this._r);
         }
 
         // colorize the heatmap, using opacity value of each pixel to get the right color from our gradient

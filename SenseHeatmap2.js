@@ -2,7 +2,7 @@
 /* SenseDev@camaris.be  */
 /* 2015/02/28           */
 
-//define(["jquery", "text!./SenseHeatmap2.css","./svg-area-heatmap","./heatmap","./d3.min"], function($, cssContent) {'use strict';
+//define(["jquery", "text!./SenseHeatmap2.css","./heatmap","./d3.min"], function($, cssContent) {'use strict';
 define(["jquery","./d3.min","./simpleheat","text!./SenseHeatmap2.css"], function($, cssContent) {'use strict';
 	$("<style>").html(cssContent).appendTo("head");
 	return {
